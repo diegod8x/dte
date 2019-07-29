@@ -46,7 +46,8 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-
+        define("CERTIFICADO", ROOT . DS . 'config' . DS . 'certificado.p12');
+        define("PASSWORD", '1981');
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -55,8 +56,8 @@ class AppController extends Controller
         //$this->loadComponent('Security');
     }
     public function config(){
-        define("CERTIFICADO",ROOT.DS.'config'.DS.'certificado.p12');
-        define("PASSWORD", '123qwe');
+        \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+        \sasco\LibreDTE\Sii::setServidor('maullin');
         return $config = [
             'firma' => [
                 'file' => CERTIFICADO,

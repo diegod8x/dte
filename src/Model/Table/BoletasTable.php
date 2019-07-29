@@ -17,8 +17,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Boleta patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Boleta[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Boleta findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class BoletasTable extends Table
 {
@@ -35,8 +33,6 @@ class BoletasTable extends Table
         $this->setTable('boletas');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-
-        $this->addBehavior('Timestamp');
     }
 
     /**
@@ -48,29 +44,18 @@ class BoletasTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create')
-            ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->nonNegativeInteger('id')
+            ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('nombre')
-            ->maxLength('nombre', 45)
-            ->allowEmptyString('nombre');
+            ->scalar('xml')
+            ->maxLength('xml', 45)
+            ->allowEmptyString('xml');
+
+        $validator
+            ->integer('folio')
+            ->allowEmptyString('folio');
 
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['id']));
-
-        return $rules;
     }
 }

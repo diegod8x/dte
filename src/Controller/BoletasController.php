@@ -13,11 +13,13 @@ define("BOLETA_ELECTRONICA", 39);
  */
 class BoletasController extends AppController
 {
-    public function generar()
+    public function emitir()
     {        
-        $boleta = $this->Boletas->newEntity();
-        if ($this->request->is('post')) {
 
+        $boleta = $this->Boletas->newEntity();
+        $config = AppController::config();
+        if ($this->request->is('post')) {
+            
             // primer folio a usar para envio de set de pruebas
             $folios = [
                 39 => 1 // boleta electrónica
@@ -29,20 +31,37 @@ class BoletasController extends AppController
             // datos de las boletas (cada elemento del arreglo $set_pruebas es una boleta)
             $set_pruebas = $this->request->data["dataPruebas"];
             
-            $respuesta = $this->setBoleta($folios, $caratula, $Emisor, $Receptor, $set_pruebas);
-            pr($respuesta);exit;
-            echo $respuesta;exit;
+            $boleta["xml"] = mb_convert_encoding(utf8_encode($this->setBoleta($folios, $caratula, $Emisor, $Receptor, $set_pruebas)), 'ISO-8859-1');         
+
+            $dom = new \DOMDocument;
+            $dom->preserveWhiteSpace = FALSE;
+            $dom->loadXML($boleta["xml"]);
+
+            //Save XML as a file
+            $dom->save(ROOT . DS . 'files' . DS . 'xml' . DS . $set_pruebas[0]["Encabezado"]["IdDoc"]["Folio"] . '.xml');
+            echo json_encode(array("folio" => $set_pruebas[0]["Encabezado"]["IdDoc"]["Folio"]));
+            exit;
+            //pr($set_pruebas[0]["Encabezado"]["IdDoc"]["Folio"]);exit;
+            /*$boleta["folio"] = intval($set_pruebas[0]["Encabezado"]["IdDoc"]["Folio"]);
 
             $boleta = $this->Boletas->patchEntity($boleta, $this->request->getData());
 
             if ($this->Boletas->save($boleta)) {
- 
 
-                $this->Flash->success(__('The boleta has been saved.'));
+                echo json_encode([
+                    "message"=>"guardado correctamente", 
+                    "data"=>$boleta["xml"]
+                    ]
+                );
+                exit;
+                return true;
+                //$this->Flash->success(__('The boleta has been saved.'));                
+                //return $this->redirect(['action' => 'index']);
 
-                return $this->redirect(['action' => 'index']);
+
             }
-            $this->Flash->error(__('The boleta could not be saved. Please, try again.'));
+            $this->Flash->error(__('The boleta could not be saved. Please, try again.'));*/
+
         }
         $this->set(compact('boleta'));
     }
@@ -51,6 +70,7 @@ class BoletasController extends AppController
 
         $config = AppController::config();
         // Objetos de Firma y Folios
+
         $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
         $Folios = [];
         $rutaXml = ROOT.DS.'files'.DS.'xml'.DS.'boletas'.DS;
@@ -59,8 +79,9 @@ class BoletasController extends AppController
 
         // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioBOLETA
         $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
+        
         foreach ($set_pruebas as $documento) {
-            $DTE = new \sasco\LibreDTE\Sii\Dte($documento);
+            $DTE = new \sasco\LibreDTE\Sii\Dte($documento);                        
             if (!$DTE->timbrar($Folios[$DTE->getTipo()]))
                 break;
             if (!$DTE->firmar($Firma))
@@ -70,16 +91,123 @@ class BoletasController extends AppController
         $EnvioDTE->setFirma($Firma);
         $EnvioDTE->setCaratula($caratula);
         $EnvioDTE->generar();
-        if ($EnvioDTE->schemaValidate()) {
+        if ($EnvioDTE->schemaValidate()) {            
             return $EnvioDTE->generar();
         } else {
-            // si hubo errores mostrar
+            // si hubo errores mostrar            
             $errorMsg = '';
             foreach (\sasco\LibreDTE\Log::readAll() as $error) {
-                $errorMsg.=$error."\n";
+
+                return $error."\n";
             }
-            return $errorMsg;
+            echo $errorMsg;
         }        
+    }
+
+    public function generaPdf(){
+        // Cargar EnvioDTE y extraer arreglo con datos de carátula y DTEs
+        //pr($this->request->data());exit;
+        $config = AppController::config();
+        $archivo = ROOT . DS . 'files' . DS . 'xml' . DS . $this->request->data["folio"] . '.xml';
+ 
+        $EnvioDte = new \sasco\LibreDTE\Sii\EnvioDte();
+        $EnvioDte->loadXML(file_get_contents($archivo));
+        $Caratula = $EnvioDte->getCaratula();
+        $Documentos = $EnvioDte->getDocumentos();
+        // directorio temporal para guardar los PDF
+        $dir = sys_get_temp_dir().'/dte_'.$Caratula['RutEmisor'].'_'.$Caratula['RutReceptor'].'_'.str_replace(['-', ':', 'T'], '', $Caratula['TmstFirmaEnv']);
+        if (is_dir($dir))
+            \sasco\LibreDTE\File::rmdir($dir);
+
+        if (!mkdir($dir))
+            die('No fue posible crear directorio temporal para DTEs');
+        // procesar cada DTEs e ir agregándolo al PDF
+        foreach ($Documentos as $DTE) {
+            if (!$DTE->getDatos())
+                die('No se pudieron obtener los datos del DTE');
+            $pdf = new \sasco\LibreDTE\Sii\Dte\PDF\Dte(false); // =false hoja carta, =true papel contínuo (false por defecto si no se pasa)
+            $pdf->setFooterText();
+            $pdf->setLogo('/home/delaf/www/localhost/dev/pages/sasco/website/webroot/img/logo_mini.png'); // debe ser PNG!
+            $pdf->setResolucion(['FchResol'=>$Caratula['FchResol'], 'NroResol'=>$Caratula['NroResol']]);
+            //$pdf->setCedible(true);
+            $pdf->agregar($DTE->getDatos(), $DTE->getTED());
+            $pdf->Output($dir.'/dte_'.$Caratula['RutEmisor'].'_'.$DTE->getID().'.pdf', 'F');
+        }
+        // entregar archivo comprimido que incluirá cada uno de los DTEs
+        \sasco\LibreDTE\File::compress($dir, ['format'=>'zip', 'delete'=>true]);
+    }
+
+    public function enviar(){
+        $config = AppController::config();
+        // datos del envío
+        $xml = file_get_contents(ROOT . DS . 'files' . DS . 'xml' . DS .'1.xml');
+        $RutEnvia = '13991496-1';
+        $RutEmisor = '13991496-1';
+
+
+        // solicitar token
+        $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+        if (!$token) {
+            foreach (\sasco\LibreDTE\Log::readAll() as $error)
+                echo $error,"\n";
+            exit;
+        }
+
+        // enviar DTE
+        $result = \sasco\LibreDTE\Sii::enviar($RutEnvia, $RutEmisor, $xml, $token);
+
+        // si hubo algún error al enviar al servidor mostrar
+        if ($result===false) {
+            foreach (\sasco\LibreDTE\Log::readAll() as $error)
+                echo $error,"\n";
+            exit;
+        }
+
+        // Mostrar resultado del envío
+        if ($result->STATUS!='0') {
+            foreach (\sasco\LibreDTE\Log::readAll() as $error)
+                echo $error,"\n";
+            exit;
+        }
+        echo 'DTE envíado. Track ID '.$result->TRACKID,"\n";
+        exit;
+    }
+
+    public function consultar(){
+        // solicitar token
+        $config = AppController::config();
+        // trabajar en ambiente de certificación
+
+        pr(\sasco\LibreDTE\Sii::getServidor());
+        // solicitar token
+        $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+        if (!$token) {
+            foreach (\sasco\LibreDTE\Log::readAll() as $error)
+                echo $error,"\n";
+            exit;
+        }
+
+
+        // consultar estado enviado
+        $rut = '13991496';
+        $dv = '1';
+        $trackID = '0075449310';
+        $estado = \sasco\LibreDTE\Sii::request('QueryEstUp', 'getEstUp', [$rut, $dv, $trackID, $token]);
+        pr($estado);exit;
+        // si el estado se pudo recuperar se muestra estado y glosa
+        if ($estado!==false) {
+            print_r([
+                'codigo' => (string)$estado->xpath('/SII:RESPUESTA/SII:RESP_HDR/ESTADO')[0],
+                'glosa' => (string)$estado->xpath('/SII:RESPUESTA/SII:RESP_HDR/GLOSA')[0],
+            ]);
+        }
+
+        // mostrar error si hubo
+        foreach (\sasco\LibreDTE\Log::readAll() as $error)
+            echo $error,"\n";
+            
+            
+        exit;
     }
     /**
      * Index method

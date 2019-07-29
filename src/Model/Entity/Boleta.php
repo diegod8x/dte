@@ -7,9 +7,8 @@ use Cake\ORM\Entity;
  * Boleta Entity
  *
  * @property int $id
- * @property string|null $nombre
- * @property \Cake\I18n\FrozenDate|null $created
- * @property \Cake\I18n\FrozenDate|null $modified
+ * @property string|null $xml
+ * @property int|null $folio
  */
 class Boleta extends Entity
 {
@@ -23,8 +22,7 @@ class Boleta extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nombre' => true,
-        'created' => true,
-        'modified' => true
+        'xml' => true,
+        'folio' => true
     ];
 }
