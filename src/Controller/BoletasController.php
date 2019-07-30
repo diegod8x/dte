@@ -30,12 +30,19 @@ class BoletasController extends AppController
             $Receptor = $this->request->data["receptor"];            
             // datos de las boletas (cada elemento del arreglo $set_pruebas es una boleta)
             $set_pruebas = $this->request->data["dataPruebas"];
-            
-            $boleta["xml"] = mb_convert_encoding(utf8_encode($this->setBoleta($folios, $caratula, $Emisor, $Receptor, $set_pruebas)), 'ISO-8859-1');         
 
+            //pr($set_pruebas["Encabezado"]["IdDoc"]["Folio"]);exit;
+            
+            //$boleta["xml"] = mb_convert_encoding($this->setBoleta($folios, $caratula, $Emisor, $Receptor, $set_pruebas)), 'ISO-8859-1');         
+            $boleta["xml"] = $this->setBoleta($folios, $caratula, $Emisor, $Receptor, $set_pruebas);
+
+            /*$iso88591_1 = utf8_decode($boleta["xml"]);
+            $iso88591_2 = iconv('UTF-8', 'ISO-8859-1', $boleta["xml"]);
+            $iso88591_3 = mb_convert_encoding($boleta["xml"], 'ISO-8859-1', 'UTF-8');*/
+            
             $dom = new \DOMDocument;
-            $dom->preserveWhiteSpace = FALSE;
-            $dom->loadXML($boleta["xml"]);
+            $dom->preserveWhiteSpace = TRUE;
+            $dom->loadXML(trim($boleta["xml"]));
 
             //Save XML as a file
             $dom->save(ROOT . DS . 'files' . DS . 'xml' . DS . $set_pruebas[0]["Encabezado"]["IdDoc"]["Folio"] . '.xml');
@@ -72,6 +79,7 @@ class BoletasController extends AppController
         // Objetos de Firma y Folios
 
         $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+        
         $Folios = [];
         $rutaXml = ROOT.DS.'files'.DS.'xml'.DS.'boletas'.DS;
         foreach ($folios as $tipo => $cantidad)
@@ -88,9 +96,11 @@ class BoletasController extends AppController
                 break;
             $EnvioDTE->agregar($DTE);
         }
+
         $EnvioDTE->setFirma($Firma);
         $EnvioDTE->setCaratula($caratula);
         $EnvioDTE->generar();
+
         if ($EnvioDTE->schemaValidate()) {            
             return $EnvioDTE->generar();
         } else {
@@ -140,12 +150,14 @@ class BoletasController extends AppController
     public function enviar(){
         $config = AppController::config();
         // datos del envío
-        $xml = file_get_contents(ROOT . DS . 'files' . DS . 'xml' . DS .'1.xml');
+
+        $xml = file_get_contents(ROOT . DS . 'files' . DS . 'xml' . DS .$this->request->data["folio"].'.xml');
         $RutEnvia = '13991496-1';
         $RutEmisor = '13991496-1';
 
 
         // solicitar token
+        
         $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
         if (!$token) {
             foreach (\sasco\LibreDTE\Log::readAll() as $error)
@@ -177,8 +189,6 @@ class BoletasController extends AppController
         // solicitar token
         $config = AppController::config();
         // trabajar en ambiente de certificación
-
-        pr(\sasco\LibreDTE\Sii::getServidor());
         // solicitar token
         $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
         if (!$token) {
@@ -189,11 +199,13 @@ class BoletasController extends AppController
 
 
         // consultar estado enviado
-        $rut = '13991496';
-        $dv = '1';
-        $trackID = '0075449310';
+
+        $rut = $this->request->data["rut"];
+        $dv = $this->request->data["dv"];
+        $trackID = $this->request->data["trackId"];
+
         $estado = \sasco\LibreDTE\Sii::request('QueryEstUp', 'getEstUp', [$rut, $dv, $trackID, $token]);
-        pr($estado);exit;
+        //pr($estado);exit;
         // si el estado se pudo recuperar se muestra estado y glosa
         if ($estado!==false) {
             print_r([
