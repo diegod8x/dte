@@ -1,10 +1,91 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<EnvioBOLETA xmlns="http://www.sii.cl/SiiDte" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioBOLETA_v11.xsd" version="1.0"><SetDTE ID="LibreDTE_SetDoc"><Caratula version="1.0"><RutEmisor>13991496-1</RutEmisor><RutEnvia>13991496-1</RutEnvia><RutReceptor>15394719-8</RutReceptor><FchResol>2014-12-05</FchResol><NroResol>0</NroResol><TmstFirmaEnv>2019-07-30T03:47:13</TmstFirmaEnv><SubTotDTE><TpoDTE>39</TpoDTE><NroDTE>1</NroDTE></SubTotDTE></Caratula><DTE version="1.0"><Documento ID="LibreDTE_T39F23"><Encabezado><IdDoc><TipoDTE>39</TipoDTE><Folio>23</Folio><FchEmis>2019-07-30</FchEmis><IndServicio>3</IndServicio></IdDoc><Emisor><RUTEmisor>13991496-1</RUTEmisor><RznSocEmisor>JOSE ANDRES RUIZ CORNEJO</RznSocEmisor><GiroEmisor>ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE</GiroEmisor><DirOrigen>Santiago</DirOrigen><CmnaOrigen>Santiago</CmnaOrigen></Emisor><Receptor><RUTRecep>15394719-8</RUTRecep><RznSocRecep>Diego Diaz</RznSocRecep><DirRecep>Santiago</DirRecep><CmnaRecep>Santiago</CmnaRecep></Receptor><Totales><MntTotal>195000</MntTotal></Totales></Encabezado><Detalle><NroLinDet>1</NroLinDet><NmbItem>Punto de Acceso WAP54G</NmbItem><QtyItem>4</QtyItem><PrcItem>35000</PrcItem><MontoItem>140000</MontoItem></Detalle><Detalle><NroLinDet>2</NroLinDet><NmbItem>Router WRT54GL</NmbItem><QtyItem>1</QtyItem><PrcItem>55000</PrcItem><MontoItem>55000</MontoItem></Detalle><TED version="1.0"><DD><RE>13991496-1</RE><TD>39</TD><F>23</F><FE>2019-07-30</FE><RR>15394719-8</RR><RSR>Diego Diaz</RSR><MNT>195000</MNT><IT1>Punto de Acceso WAP54G</IT1><CAF version="1.0"><DA><RE>13991496-1</RE><RS>JOSE ANDRES RUIZ CORNEJO</RS><TD>39</TD><RNG><D>1</D><H>50</H></RNG><FA>2019-07-23</FA><RSAPK><M>pqqKTGvc41Rlmt2JEklLzUcC120eM9ZmbujqZFSic+pHFt/ajyNDwBjWTW5miG64XcvVIRRTcII1CJt6HokW2w==</M><E>Aw==</E></RSAPK><IDK>100</IDK></DA><FRMA algoritmo="SHA1withRSA">MiIVZx0QDk7QCF30fFEayI1qddHBQmyMFH4GYfCEpPyKZ47zUAYTJQ+fJNhFeOVF7CvGau2fvV10b4kcJyK+8g==</FRMA></CAF><TSTED>2019-07-30T03:47:13</TSTED></DD><FRMT algoritmo="SHA1withRSA">NaiGfrP5ogCxr+xQsuaAr4TkiKED3AD/g+3T68zO6DAG7OPwDd25MfPV7QHGoIKQBCV5mNNhodtq6acNamcyOw==</FRMT></TED><TmstFirma>2019-07-30T03:47:13</TmstFirma></Documento><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#LibreDTE_T39F23"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>B2PxLdfbPSISKQGrW0tC/YApIJE=</DigestValue></Reference></SignedInfo><SignatureValue>FIanWmj2viID7bdYPExm13QFJSwrzbsd9//mGlACI47bIeYdvYZU/4dXrTK9A8Ki
-LsR+X4PDRCL6tWCWxHvu7FZllvU2CtmNJTV5uab+gFgskN1A2o2FE0HV9FTrpk5W
-vZ+G+DkvkFdJ5vxiNLxXFQAjb8Lw4vUn0jeLNM7cFefjpfSUWfn1IDq1k/7APUd2
-rpmwltcXIFQm+BcMh0QT5cLZpvb15/hYqJnKGXbYijTJ88jB1u5B9gtKa94kp4E0
-nr8M3dn8G20CTqSiUtNYHqTKZnd/208tTPOO3LrMqJWDH0lMhnesUsLqi/iIQhp3
-xr3FojulY/q/UJNi/viG2Q==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>jOlMCM7BTCOxsTbzQucd3/hRuh4fgPC5e8A0PQw7LlUnP4R+7GtjnbZdO6t/zYJp
+<EnvioBOLETA xmlns="http://www.sii.cl/SiiDte" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioBOLETA_v11.xsd" version="1.0">
+  <SetDTE ID="LibreDTE_SetDoc">
+    <Caratula version="1.0">
+      <RutEmisor>13991496-1</RutEmisor>
+      <RutEnvia>13991496-1</RutEnvia>
+      <RutReceptor>60803000-K</RutReceptor>
+      <FchResol>2019-07-23</FchResol>
+      <NroResol>0</NroResol>
+      <TmstFirmaEnv>2019-07-31T19:42:43</TmstFirmaEnv>
+      <SubTotDTE>
+        <TpoDTE>39</TpoDTE>
+        <NroDTE>1</NroDTE>
+      </SubTotDTE>
+    </Caratula>
+    <DTE version="1.0">
+  <Documento ID="LibreDTE_T39F23">
+    <Encabezado>
+      <IdDoc>
+        <TipoDTE>39</TipoDTE>
+        <Folio>23</Folio>
+        <FchEmis>2019-07-31</FchEmis>
+        <IndServicio>3</IndServicio>
+      </IdDoc>
+      <Emisor>
+        <RUTEmisor>13991496-1</RUTEmisor>
+        <RznSocEmisor>JOSE ANDRES RUIZ CORNEJO</RznSocEmisor>
+        <GiroEmisor>ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE</GiroEmisor>
+        <DirOrigen>PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol</DirOrigen>
+        <CmnaOrigen>VILLA ALEMANA</CmnaOrigen>
+      </Emisor>
+      <Receptor>
+        <RUTRecep>15394719-8</RUTRecep>
+        <RznSocRecep>Diego Diaz</RznSocRecep>
+        <DirRecep>Santiago</DirRecep>
+        <CmnaRecep>Santiago</CmnaRecep>
+      </Receptor>
+      <Totales>
+        <MntTotal>195000</MntTotal>
+      </Totales>
+    </Encabezado>
+    <Detalle>
+      <NroLinDet>1</NroLinDet>
+      <NmbItem>Punto de Acceso WAP54G</NmbItem>
+      <QtyItem>4</QtyItem>
+      <PrcItem>35000</PrcItem>
+      <MontoItem>140000</MontoItem>
+    </Detalle>
+    <Detalle>
+      <NroLinDet>2</NroLinDet>
+      <NmbItem>Router WRT54GL</NmbItem>
+      <QtyItem>1</QtyItem>
+      <PrcItem>55000</PrcItem>
+      <MontoItem>55000</MontoItem>
+    </Detalle>
+    <TED version="1.0">
+  <DD>
+    <RE>13991496-1</RE>
+    <TD>39</TD>
+    <F>23</F>
+    <FE>2019-07-31</FE>
+    <RR>15394719-8</RR>
+    <RSR>Diego Diaz</RSR>
+    <MNT>195000</MNT>
+    <IT1>Punto de Acceso WAP54G</IT1>
+    <CAF version="1.0">
+<DA>
+<RE>13991496-1</RE>
+<RS>JOSE ANDRES RUIZ CORNEJO</RS>
+<TD>39</TD>
+<RNG><D>1</D><H>50</H></RNG>
+<FA>2019-07-23</FA>
+<RSAPK><M>pqqKTGvc41Rlmt2JEklLzUcC120eM9ZmbujqZFSic+pHFt/ajyNDwBjWTW5miG64XcvVIRRTcII1CJt6HokW2w==</M><E>Aw==</E></RSAPK>
+<IDK>100</IDK>
+</DA>
+<FRMA algoritmo="SHA1withRSA">MiIVZx0QDk7QCF30fFEayI1qddHBQmyMFH4GYfCEpPyKZ47zUAYTJQ+fJNhFeOVF7CvGau2fvV10b4kcJyK+8g==</FRMA>
+</CAF>
+    <TSTED>2019-07-31T19:42:43</TSTED>
+  </DD>
+  <FRMT algoritmo="SHA1withRSA">HX5rDaDddKdS+3FiVuuyoJRrhgn897kEYl04fgrtehq3n8Ra9IUemWNuy6V3TjnBSF9+Q7D4feSltxRu2+noPQ==</FRMT>
+</TED>
+  <TmstFirma>2019-07-31T19:42:43</TmstFirma></Documento>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#LibreDTE_T39F23"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>giwCwDeaPvkt1Wfo/Rn2dymZQSk=</DigestValue></Reference></SignedInfo><SignatureValue>XZzon4VnE8OirzWafA/DhrtLwhUTq1ixB5kO8hFQNDRatWmcX+++ibQarcDRETdG
+tGfnXq4lsPdkmQWoifrbZ3CYlbknT17GVG24v2RB6++e1Bpul9BOprfH6/V9Hgmr
+TBhcRz0G5G2G7BgukAYu47DIkAEf4rUT80Wr+NpKrQ697TRk0iBExqXavMndRVpI
+qpxUp8EQ6qO1QgxY5Hxe2+0YACRysezhXXOQezkSvwpKA7gf2POoQHPK02lSGbOc
+9xQmBhW1gU6jFRKc1K26sCJiKxRgl3oPA6D8ufhL/qCfmgYjRdkzTw5z0ng6vKeY
+p0oQztoOpuYIu4RFPYTufA==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>jOlMCM7BTCOxsTbzQucd3/hRuh4fgPC5e8A0PQw7LlUnP4R+7GtjnbZdO6t/zYJp
 6pv6RETrDarU0bsLIhNbAGh14MJJx1J4N8EDpkxMnXtPriVx2mkEA4K8f0bVXJWp
 Skpp5ZZ2dysMWH0zgE9Ry9J915obg+gzBgvLa3G39grQTF4TrUOjMKOHUzpnt7hl
 emrs5XY8Mk7TDJ+IYaY0OTTfzvXFT0D4p9P3OUgaWkmsEbcggsxGiiRbPPL8FnWL
@@ -42,12 +123,14 @@ gkGhsbhxQZVMsVsDkUG7DAitQFCLoG6j9fc8M6D42PratszUFf1gsudgm10rsZJJ
 DaVnn5hGSMLDww4Gdu1jHzoLrI5M2qHX4ZyCO8XibIwC84x7TkcFuOE5G4phlq3m
 m915W0NDE+/KoOnsskw4EETErJLLLH9aeYz5wm6ZJt0g0oUfuoDnm7FePS/d9cQG
 mExYmy8kpz0D5MT7L/QDOiKt8sgZkT9N/ZXI8Hcxh6VJn+xQPOYt+YQyHiaxigPA
-tk9YTwwPWEj90KQzV1de5PgfO7qUGKnio2qN</X509Certificate></X509Data></KeyInfo></Signature></DTE></SetDTE><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#LibreDTE_SetDoc"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>4JdtolR+M7hT7BJGn7VDoGWFstE=</DigestValue></Reference></SignedInfo><SignatureValue>M78syHGGUF3lN9tSCs7MxP2o+ZEaKn+X6VY/zRxKSib75Vjz9Gupt2y/KvvXfjda
-G81E04uurQC/aaMvvMGTshlecIBKLnAF/Jy3oGqwTWv/I6ZZ1aFFM6uJTXM+QiBk
-YCzABuc+n/dNcg/hOyUVg5/PYMVqnwnJSUBFHAj56vcu+xFI+4ysNeiN0sKym497
-rGsQKpMRB90q1aAKdPW2DAljUYbCGajkBaHyyjOKHVjRGsQLu30WzNlpX07Ik24W
-Q/8y2oZMB9EabfWmyS/bYSW5m6lcVh0Dj0y4rVdCMhQeqnUoDqAMudmgT1qoWZcL
-UFUSdrkSnveCP8cWCnXfHw==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>jOlMCM7BTCOxsTbzQucd3/hRuh4fgPC5e8A0PQw7LlUnP4R+7GtjnbZdO6t/zYJp
+tk9YTwwPWEj90KQzV1de5PgfO7qUGKnio2qN</X509Certificate></X509Data></KeyInfo></Signature></DTE>
+  </SetDTE>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#LibreDTE_SetDoc"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>9kqGxABRiQVUfqn4UnVdReQEc/8=</DigestValue></Reference></SignedInfo><SignatureValue>R5MNCboKMyshRTGKPMO+sv6sAjmmYvluYRnX9jQhHj49NjSbdzWYa5FVhQOEMRZN
+F8jhPC9rLsGhgeJrkJwOeqUw465K592wLWjLYpWgC2b6YtgvVAluJCp2M9wOMepO
+L1lnI4oMo6/I9ACWDHdiEUenXZvj1EH5wS+9Y66XzmnbTY428w7znlq/FdsshZGB
+s9NJGR9Ybj5wAFMVFT3w2hNV9S7zwv8tizYVm3N6olVRIRBXCcO9DUCJVbtxNS8Y
+sVmyuyaE9MGUqZr92OeyDtsafdOt0HD7deRnuOs6pn8WUNJYromVQOphFMCjYy/+
+DF+vfUP3JqTLvOkx9kOAXg==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>jOlMCM7BTCOxsTbzQucd3/hRuh4fgPC5e8A0PQw7LlUnP4R+7GtjnbZdO6t/zYJp
 6pv6RETrDarU0bsLIhNbAGh14MJJx1J4N8EDpkxMnXtPriVx2mkEA4K8f0bVXJWp
 Skpp5ZZ2dysMWH0zgE9Ry9J915obg+gzBgvLa3G39grQTF4TrUOjMKOHUzpnt7hl
 emrs5XY8Mk7TDJ+IYaY0OTTfzvXFT0D4p9P3OUgaWkmsEbcggsxGiiRbPPL8FnWL
