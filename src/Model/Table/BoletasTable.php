@@ -48,13 +48,13 @@ class BoletasTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('xml')
-            ->maxLength('xml', 45)
-            ->allowEmptyString('xml');
-
-        $validator
             ->integer('folio')
             ->allowEmptyString('folio');
+
+        $validator
+            ->scalar('xml')
+            ->maxLength('xml', 4294967295)
+            ->allowEmptyString('xml');
 
         return $validator;
     }
