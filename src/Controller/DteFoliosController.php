@@ -12,6 +12,18 @@ use App\Controller\AppController;
  */
 class DteFoliosController extends AppController
 {
+
+
+    public function getFolio($id){
+
+        $dteFolio = $this->DteFolios->get($id, [
+            'contain' => ['DteTipoDocumentos']
+        ]);
+        $this->DteFolios->save($dteFolio)
+
+    }
+
+
     /**
      * Index method
      *
