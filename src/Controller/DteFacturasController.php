@@ -3,6 +3,10 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+define("CERT_BOLETAS", ROOT . DS . 'files' . DS . 'certificacion' . DS);
+define("FILE_BOLETAS", 'EnvioBOLETAS');
+
 /**
  * DteFacturas Controller
  *
@@ -12,6 +16,57 @@ use App\Controller\AppController;
  */
 class DteFacturasController extends AppController
 {
+
+
+    public function certificar()
+    {
+        
+        if ($this->request->is('post')) {
+                        
+            /*if (!empty($this->request->data["data"]) && !empty($this->request->data["file"])) {
+                $this->request->data["data"] = json_decode($this->request->data["data"], true);
+            }
+            else {
+                echo json_encode(["message" => "Debe completar todos los campos antes de enviar la solicitud", "data" => []]); 
+                exit;
+            }*/
+
+            if (!empty($this->request->data["data"]["caratula"]) && !empty($this->request->data["data"]["emisor"]) && !empty($this->request->data["data"]["receptor"]) && !empty($this->request->data["data"]["dataPruebas"])){
+
+                $caratula = $this->request->data["data"]["caratula"];
+                $Emisor = $this->request->data["data"]["emisor"];
+                $Receptor = $this->request->data["data"]["receptor"];
+                $documentos = $this->request->data["data"]["dataPruebas"];
+                
+                $file = $this->request->data["file"];                
+                $pathXML = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
+                $pathCAF = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($file['name']);
+                move_uploaded_file($file['tmp_name'], $pathCAF);
+                
+                $foliosTipo = [ 39 => 1 ];
+
+                $boleta["xml"] = $this->setBoleta($foliosTipo, $caratula, $Emisor, $Receptor, $documentos);
+                
+                $dom = new \DOMDocument;
+                $dom->preserveWhiteSpace = TRUE;
+                $dom->loadXML(trim($boleta["xml"]));
+                $dom->save($pathXML);
+
+                header('Content-type: text/xml');
+                header('Content-Disposition: attachment; filename='.FILE_BOLETAS.'.xml');
+
+                echo $dom->saveXML() . "\n";
+
+            } else {
+                echo json_encode(["message" => "Debe completar todos los campos antes de enviar la solicitud.", "data" => []]);
+            }            
+        }      
+        exit;  
+    }
+
+
+
+
     /**
      * Index method
      *

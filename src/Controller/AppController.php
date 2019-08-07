@@ -28,6 +28,7 @@ use Cake\Event\Event;
 
 define("CERTIFICADO", ROOT . DS . 'config' . DS . 'certificado.p12');
 define("PASSWORD", '1981');
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);  
 
 class AppController extends Controller
 {
@@ -58,8 +59,7 @@ class AppController extends Controller
     }
 
     public function config(){
-        \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-        \sasco\LibreDTE\Sii::setServidor('maullin');
+        \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);        
         return $config = [
             'firma' => [
                 'file' => CERTIFICADO,
