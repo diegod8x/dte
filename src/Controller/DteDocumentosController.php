@@ -18,17 +18,15 @@ class DteDocumentosController extends AppController
 
         if ($this->request->is('post')) {
 
-            $data = $this->request->data;
-            //pr($data);exit;
-            foreach ($data["dte"] as $dte) {
-                pr($dte);exit;
+            $data = $this->request->data;            
+           
+            foreach ($data["dte"] as $dte) {                
                 switch ($dte["Encabezado"]["TipoDTE"]) {
                     case 39: DetBoletasController::emitir($data);
                     break;
                     default: return json_encode(["message"=>"Documento no soportado."]);
                 }
             }
-            
 
         }
         exit;

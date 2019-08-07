@@ -15,7 +15,6 @@ class BoletasController extends AppController
 {
     public function emitir()
     {        
-
         $boleta = $this->Boletas->newEntity();
         $config = AppController::config();
         if ($this->request->is('post')) {

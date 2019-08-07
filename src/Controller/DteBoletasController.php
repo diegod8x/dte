@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\DteFoliosController;
 
 /**
  * DteBoletas Controller
@@ -12,6 +13,87 @@ use App\Controller\AppController;
  */
 class DteBoletasController extends AppController
 {
+
+    public function certificar()
+    {        
+        //$dteBoleta = $this->DteBoletas->newEntity();
+        //$foliosObj = new DteFoliosController(); 
+        if ($this->request->is('post')) {
+            /*$this->loadModel('DteTipoDocumentos');
+            $tiposDocs = $this->DteTipoDocumentos->find()->select(["codigo","id"])->enableHydration(false)->toList();
+            foreach($tiposDocs as $tipoDoc)
+                $tipoDocumento[$tipoDoc["codigo"]] = $tipoDoc["id"];*/            
+            $caratula = $this->request->data["caratula"];
+            $Emisor = $this->request->data["emisor"];
+            $Receptor = $this->request->data["receptor"];
+            $documentos = $this->request->data["dataPruebas"];
+            $foliosTipo = [ 39 => 1 ];
+            //foreach($documentos as $documento) {
+                //if(!isset($documento["Encabezado"]["IdDoc"]["Folio"]))
+                //    $documento["Encabezado"]["IdDoc"]["Folio"] = $foliosObj->getFolio($documento["Encabezado"]["Emisor"]["RUTEmisor"], $tipoDocumento[$documento["Encabezado"]["IdDoc"]["TipoDTE"]]);                
+                //if(array_key_exists($tipoDocumento[$documento["Encabezado"]["IdDoc"]["TipoDTE"]], $search_array))
+                //    $foliosTipo[$tipoDocumento[$documento["Encabezado"]["IdDoc"]["TipoDTE"]]] = 1;
+                //$documentosConFolio[] = $documento;
+            //}
+
+            $boleta["xml"] = $this->setBoleta($foliosTipo, $caratula, $Emisor, $Receptor, $documentos);
+
+            $dom = new \DOMDocument;
+            $dom->preserveWhiteSpace = TRUE;
+            $dom->loadXML(trim($boleta["xml"]));
+            $dom->save(ROOT . DS . 'files' . DS . 'certificacion' . DS . $Emisor["RUTEmisor"] .DS . 'EnvioBOLETAS.xml');
+            echo json_encode(["message" => "OK", "EnvioBOLETAS" => $boleta["xml"] ]);
+            exit;
+        }
+        $this->set(compact('boleta'));
+    }
+
+    public function setBoleta($folios, $caratula, $Emisor, $Receptor, $documentos){
+
+        $config = AppController::config();
+        // Objetos de Firma y Folios
+        $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+        
+        $Folios = [];
+        $rutaXml = ROOT.DS.'files'.DS.'xml'.DS.'folios'.DS;
+
+        foreach ($folios as $tipo => $cantidad)
+            $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents($rutaXml.$tipo.'.xml'));
+
+        // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioBOLETA
+        $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
+        
+        foreach ($documentos as $documento) {
+            $DTE = new \sasco\LibreDTE\Sii\Dte($documento);                        
+            if (!$DTE->timbrar($Folios[$DTE->getTipo()]))
+                break;
+            if (!$DTE->firmar($Firma))
+                break;
+            $EnvioDTE->agregar($DTE);
+        }
+
+        $EnvioDTE->setFirma($Firma);
+        $EnvioDTE->setCaratula($caratula);
+        $EnvioDTE->generar();
+
+        if ($EnvioDTE->schemaValidate()) {            
+            return $EnvioDTE->generar();
+        } else {
+            // si hubo errores mostrar            
+            $errorMsg = '';
+            foreach (\sasco\LibreDTE\Log::readAll() as $error) {
+
+                return $error."\n";
+            }
+            echo $errorMsg;
+        }        
+    }
+
+
+
+
+
+
     /**
      * Index method
      *

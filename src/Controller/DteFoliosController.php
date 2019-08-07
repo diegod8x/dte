@@ -13,14 +13,19 @@ use App\Controller\AppController;
 class DteFoliosController extends AppController
 {
 
+    public function getFolio($rut, $docId){
 
-    public function getFolio($id){
+        $folioValue = $this->DteFolios->find()
+                        ->select(['id','ultimo_disponible'])
+                        ->where(['rut_emisor' => $rut, 'dte_tipo_documento_id' => $docId])
+                        ->enableHydration(false)
+                        ->first();
 
-        $dteFolio = $this->DteFolios->get($id, [
-            'contain' => ['DteTipoDocumentos']
-        ]);
-        $this->DteFolios->save($dteFolio)
+        $folio = $this->DteFolios->get($folioValue["id"]); 
+        $folio->ultimo_disponible = $folioValue["ultimo_disponible"] + 1;
+        $this->DteFolios->save($folio);
 
+        return $folioValue["ultimo_disponible"];
     }
 
 
