@@ -5,7 +5,7 @@ use App\Controller\AppController;
 use App\Controller\DteFoliosController;
 
 \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-define("CERT_BOLETAS", ROOT . DS . 'files' . DS . 'certificacion' . DS);
+define("CERT_EMP", ROOT . DS . 'files' . DS . 'certificacion' . DS);
 define("FILE_BOLETAS", 'EnvioBOLETAS');
 /**
  * DteBoletas Controller
@@ -37,8 +37,8 @@ class DteBoletasController extends AppController
                 $Receptor = $this->request->data["data"]["receptor"];
                 $documentos = $this->request->data["data"]["dataPruebas"];
                 $file = $this->request->data["file"];
-                $pathXML = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
-                $pathCAF = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($file['name']);
+                $pathXML = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
+                $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($file['name']);
                 move_uploaded_file($file['tmp_name'], $pathCAF);
                 
                 $foliosTipo = [ 39 => 1 ];
@@ -66,7 +66,7 @@ class DteBoletasController extends AppController
         // Objetos de Firma y Folios
         $config = AppController::config();
         $Folios = [];
-        $pathXML = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'folios' . DS;
+        $pathXML = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS;
         $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
         
         foreach ($folios as $tipo => $cantidad)
@@ -106,7 +106,7 @@ class DteBoletasController extends AppController
                 
                 $RutEnvia = $this->request->data["rutEmisor"];
                 $RutEmisor = $this->request->data["rutEnvia"];
-                $pathXML = CERT_BOLETAS . $RutEmisor . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
+                $pathXML = CERT_EMP . $RutEmisor . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
                 $xml = file_get_contents($pathXML);
                 // solicitar token
                 $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
@@ -144,7 +144,7 @@ class DteBoletasController extends AppController
             if (!empty($this->request->data["rutEmisor"])) {
                 $config = AppController::config();
                 $RutEmisor = $this->request->data["rutEmisor"];
-                $pathXML = CERT_BOLETAS . $RutEmisor . DS . 'xml' . DS . FILE_BOLETAS . '.xml';                        
+                $pathXML = CERT_EMP . $RutEmisor . DS . 'xml' . DS . FILE_BOLETAS . '.xml';                        
                 $EnvioDte = new \sasco\LibreDTE\Sii\EnvioDte();
                 $EnvioDte->loadXML(file_get_contents($pathXML));
                 $Caratula = $EnvioDte->getCaratula();
@@ -166,7 +166,7 @@ class DteBoletasController extends AppController
                         'right' => 'http://www.neonet.cl',
                     ];
                     $pdf->setFooterText($footer);
-                    $pdf->setLogo(CERT_BOLETAS . $RutEmisor . DS . 'logo.png'); // debe ser PNG!
+                    $pdf->setLogo(CERT_EMP . $RutEmisor . DS . 'logo.png'); // debe ser PNG!
                     $pdf->setResolucion(['FchResol'=>$Caratula['FchResol'], 'NroResol'=>$Caratula['NroResol']]);
                     //$pdf->setCedible(true);
                     $pdf->agregar($DTE->getDatos(), $DTE->getTED());

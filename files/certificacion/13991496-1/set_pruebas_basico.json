@@ -1,0 +1,410 @@
+{
+    "data": {
+        "caratula": {
+            "RutReceptor": "60803000-K",
+            "FchResol": "2019-07-23",
+            "NroResol": 0
+        },
+        "emisor": {
+            "RUTEmisor": "13991496-1",
+            "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+            "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+            "Acteco": 726000,
+            "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+            "CmnaOrigen": "VILLA ALEMANA"
+        },
+        "receptor": {
+            "RUTRecep": "15394719-8",
+            "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+            "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+            "DirRecep": "Santiago",
+            "CmnaRecep": "Santiago"
+        },
+        "dataPruebas": [
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 33,
+                        "Folio": 1
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "Cajón AFECTO",
+                        "QtyItem": 124,
+                        "PrcItem": 981
+                    },
+                    {
+                        "NmbItem": "Relleno AFECTO",
+                        "QtyItem": 54,
+                        "PrcItem": 1571
+                    }
+                ],
+                "Referencia": {
+                    "TpoDocRef": "SET",
+                    "FolioRef": 1,
+                    "RazonRef": "CASO 1137145-1"
+                }
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 33,
+                        "Folio": 2
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "Pañuelo AFECTO",
+                        "QtyItem": 247,
+                        "PrcItem": 2015,
+                        "DescuentoPct": 4
+                    },
+                    {
+                        "NmbItem": "ITEM 2 AFECTO",
+                        "QtyItem": 173,
+                        "PrcItem": 1078,
+                        "DescuentoPct": 6
+                    }
+                ],
+                "Referencia": {
+                    "TpoDocRef": "SET",
+                    "FolioRef": 2,
+                    "RazonRef": "CASO 1137145-2"
+                }
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 33,
+                        "Folio": 3
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "Pintura B&W AFECTO",
+                        "QtyItem": 25,
+                        "PrcItem": 2061
+                    },
+                    {
+                        "NmbItem": "ITEM 2 AFECTO",
+                        "QtyItem": 151,
+                        "PrcItem": 2989,
+                        "DescuentoPct": 6
+                    },
+                    {
+                        "IndExe": 1,
+                        "NmbItem": "ITEM 3 SERVICIO EXENTO",
+                        "QtyItem": 1,
+                        "PrcItem": 34718
+                    }
+                ],
+                "Referencia": {
+                    "TpoDocRef": "SET",
+                    "FolioRef": 3,
+                    "RazonRef": "CASO 1137145-3"
+                }
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 33,
+                        "Folio": 4
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "ITEM 1 AFECTO",
+                        "QtyItem": 89,
+                        "PrcItem": 1767
+                    },
+                    {
+                        "NmbItem": "ITEM 2 AFECTO",
+                        "QtyItem": 38,
+                        "PrcItem": 1535
+                    },
+                    {
+                        "IndExe": 1,
+                        "NmbItem": "ITEM 3 SERVICIO EXENTO",
+                        "QtyItem": 2,
+                        "PrcItem": 6769
+                    }
+                ],
+                "DscRcgGlobal": {
+                    "TpoMov": "D",
+                    "TpoValor": "%",
+                    "ValorDR": 7
+                },
+                "Referencia": {
+                    "TpoDocRef": "SET",
+                    "FolioRef": 4,
+                    "RazonRef": "CASO 1137145-4"
+                }
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 61,
+                        "Folio": 1
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    },
+                    "Totales": {
+                        "MntTotal": 0
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "ITEM 1 AFECTO"
+                    }
+                ],
+                "Referencia": [
+                    {
+                        "TpoDocRef": "SET",
+                        "FolioRef": 1,
+                        "RazonRef": "CASO 1137145-5"
+                    },
+                    {
+                        "TpoDocRef": 33,
+                        "FolioRef": 1,
+                        "CodRef": 2,
+                        "RazonRef": "CORRIGE GIRO DEL RECEPTOR"
+                    }
+                ]
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 61,
+                        "Folio": 2
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    },
+                    "Totales": {
+                        "MntNeto": 0,
+                        "TasaIVA": 19,
+                        "IVA": 0,
+                        "MntTotal": 0
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "Pañuelo AFECTO",
+                        "QtyItem": 91,
+                        "PrcItem": 1767
+                    },
+                    {
+                        "NmbItem": "ITEM 2 AFECTO",
+                        "QtyItem": 117,
+                        "PrcItem": 6769
+                    }
+                ],
+                "Referencia": [
+                    {
+                        "TpoDocRef": "SET",
+                        "FolioRef": 2,
+                        "RazonRef": "CASO 1137145-6"
+                    },
+                    {
+                        "TpoDocRef": 33,
+                        "FolioRef": 2,
+                        "CodRef": 3,
+                        "RazonRef": "DEVOLUCION DE MERCADERIAS"
+                    }
+                ]
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 61,
+                        "Folio": 3
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    },
+                    "Totales": {
+                        "MntNeto": 0,
+                        "MntExe": 0,
+                        "TasaIVA": 19,
+                        "IVA": 0,
+                        "MntTotal": 0
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "Pintura B&W AFECTO",
+                        "QtyItem": 25,
+                        "PrcItem": 2061
+                    },
+                    {
+                        "NmbItem": "ITEM 2 AFECTO",
+                        "QtyItem": 151,
+                        "PrcItem": 2989,
+                        "DescuentoPct": 6
+                    },
+                    {
+                        "IndExe": 1,
+                        "NmbItem": "ITEM 3 SERVICIO EXENTO",
+                        "QtyItem": 1,
+                        "PrcItem": 34718
+                    }
+                ],
+                "Referencia": [
+                    {
+                        "TpoDocRef": "SET",
+                        "FolioRef": 3,
+                        "RazonRef": "CASO 1137145-7"
+                    },
+                    {
+                        "TpoDocRef": 33,
+                        "FolioRef": 3,
+                        "CodRef": 1,
+                        "RazonRef": "ANULA FACTURA"
+                    }
+                ]
+            },
+            {
+                "Encabezado": {
+                    "IdDoc": {
+                        "TipoDTE": 56,
+                        "Folio": 1
+                    },
+                    "Emisor": {
+                        "RUTEmisor": "13991496-1",
+                        "RznSoc": "JOSE ANDRES RUIZ CORNEJO",
+                        "GiroEmis": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONE",
+                        "Acteco": 726000,
+                        "DirOrigen": "PASAJE AZALEA ORIENTE 2768 Block  Depto.  Villa/Pob. jardines del sol",
+                        "CmnaOrigen": "VILLA ALEMANA"
+                    },
+                    "Receptor": {
+                        "RUTRecep": "15394719-8",
+                        "RznSocRecep": "DIEGO LEOPOLDO DANIEL DIAZ REYES",
+                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATICA",
+                        "DirRecep": "Santiago",
+                        "CmnaRecep": "Santiago"
+                    },
+                    "Totales": {
+                        "MntTotal": 0
+                    }
+                },
+                "Detalle": [
+                    {
+                        "NmbItem": "ITEM 1 AFECTO"
+                    }
+                ],
+                "Referencia": [
+                    {
+                        "TpoDocRef": "SET",
+                        "FolioRef": 1,
+                        "RazonRef": "CASO 1137145-8"
+                    },
+                    {
+                        "TpoDocRef": 33,
+                        "FolioRef": 3,
+                        "CodRef": 1,
+                        "RazonRef": "ANULA NOTA DE CREDITO ELECTRONICA"
+                    }
+                ]
+            }
+        ]
+    }
+}

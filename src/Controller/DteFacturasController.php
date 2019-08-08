@@ -4,8 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-define("CERT_BOLETAS", ROOT . DS . 'files' . DS . 'certificacion' . DS);
-define("FILE_BOLETAS", 'EnvioBOLETAS');
+define("CERT_EMP", ROOT . DS . 'files' . DS . 'certificacion' . DS);
+define("FILE_DTE", 'EnvioDTE');
 
 /**
  * DteFacturas Controller
@@ -20,47 +20,73 @@ class DteFacturasController extends AppController
 
     public function certificar()
     {
-        
+        $config = AppController::config();
         if ($this->request->is('post')) {
                         
-            /*if (!empty($this->request->data["data"]) && !empty($this->request->data["file"])) {
+            if (!empty($this->request->data["data"]) && !empty($this->request->data["33"]) && !empty($this->request->data["61"]) && !empty($this->request->data["56"]) ) {
                 $this->request->data["data"] = json_decode($this->request->data["data"], true);
             }
             else {
                 echo json_encode(["message" => "Debe completar todos los campos antes de enviar la solicitud", "data" => []]); 
                 exit;
-            }*/
-
+            }
+            
             if (!empty($this->request->data["data"]["caratula"]) && !empty($this->request->data["data"]["emisor"]) && !empty($this->request->data["data"]["receptor"]) && !empty($this->request->data["data"]["dataPruebas"])){
 
                 $caratula = $this->request->data["data"]["caratula"];
                 $Emisor = $this->request->data["data"]["emisor"];
                 $Receptor = $this->request->data["data"]["receptor"];
                 $documentos = $this->request->data["data"]["dataPruebas"];
+                $folios = $this->request->data["data"]["folios"];
+
+                $factura = $this->request->data["33"];
+                $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($factura['name']);
+                move_uploaded_file($factura['tmp_name'], $pathCAF);
+
+                $notaCredito = $this->request->data["61"];
+                $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($notaCredito['name']);
+                move_uploaded_file($notaCredito['tmp_name'], $pathCAF);
+
+                $notaDebito = $this->request->data["56"];
+                $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($notaDebito['name']);
+                move_uploaded_file($notaDebito['tmp_name'], $pathCAF);
                 
-                $file = $this->request->data["file"];                
-                $pathXML = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'xml' . DS . FILE_BOLETAS . '.xml';
-                $pathCAF = CERT_BOLETAS . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($file['name']);
-                move_uploaded_file($file['tmp_name'], $pathCAF);
+                $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+                $Folios = [];
+                $pathXML = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS;
+                foreach ($folios as $tipo => $cantidad)
+                    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents($pathXML.$tipo.'.xml'));
+                $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
+
+                // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioDTE
+                foreach ($documentos as $documento) {
+                    $DTE = new \sasco\LibreDTE\Sii\Dte($documento);
+                    if (!$DTE->timbrar($Folios[$DTE->getTipo()]))
+                        break;
+                    if (!$DTE->firmar($Firma))
+                        break;
+                    $EnvioDTE->agregar($DTE);
+                }
+
+                // enviar dtes y mostrar resultado del envío: track id o bien =false si hubo error
+                $EnvioDTE->setCaratula($caratula);
+                $EnvioDTE->setFirma($Firma);
+                //file_put_contents('xml/EnvioDTE.xml', $EnvioDTE->generar()); // guardar XML en sistema de archivos
+                $track_id = $EnvioDTE->enviar();
+                $msg = 'Track id ' . $track_id;
+                //var_dump($track_id);
+
+                // si hubo errores mostrar
+                $obs = '';
+                foreach (\sasco\LibreDTE\Log::readAll() as $error)
+                    $obs.= $error . ' ';
+
+                echo json_encode(["message"=>  $msg . (($obs != '') ? ". Observaciones: " . $obs : $obs) . '' , "data" => []]);
                 
-                $foliosTipo = [ 39 => 1 ];
-
-                $boleta["xml"] = $this->setBoleta($foliosTipo, $caratula, $Emisor, $Receptor, $documentos);
-                
-                $dom = new \DOMDocument;
-                $dom->preserveWhiteSpace = TRUE;
-                $dom->loadXML(trim($boleta["xml"]));
-                $dom->save($pathXML);
-
-                header('Content-type: text/xml');
-                header('Content-Disposition: attachment; filename='.FILE_BOLETAS.'.xml');
-
-                echo $dom->saveXML() . "\n";
-
             } else {
                 echo json_encode(["message" => "Debe completar todos los campos antes de enviar la solicitud.", "data" => []]);
             }            
-        }      
+        }
         exit;  
     }
 
