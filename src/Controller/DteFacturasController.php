@@ -37,20 +37,42 @@ class DteFacturasController extends AppController
                 $Emisor = $this->request->data["data"]["emisor"];
                 $Receptor = $this->request->data["data"]["receptor"];
                 $documentos = $this->request->data["data"]["dataPruebas"];
-                $folios = $this->request->data["data"]["folios"];
-
+                $tipoReferencia = [
+                    "ANULA" => 1, 
+                    "CORRIGE" => 2,                    
+                    "DEVOLUCION" => 3
+                ];
+                //$folios = $this->request->data["data"]["folios"]; corrige folio
+                $folios = [];                
+                foreach($this->request->data["data"]["folios"] as $key => $value)
+                    $folios[$key] = $value - 1;
+                
+                //guarda CAF
                 $factura = $this->request->data["33"];
                 $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($factura['name']);
                 move_uploaded_file($factura['tmp_name'], $pathCAF);
-
                 $notaCredito = $this->request->data["61"];
                 $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($notaCredito['name']);
                 move_uploaded_file($notaCredito['tmp_name'], $pathCAF);
-
                 $notaDebito = $this->request->data["56"];
                 $pathCAF = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS . basename($notaDebito['name']);
                 move_uploaded_file($notaDebito['tmp_name'], $pathCAF);
-                
+                // asigna folios
+                $documentosFolio = [];
+                foreach ($documentos as $documento){
+                    $documento["Encabezado"]["IdDoc"]["Folio"] = $documento["Encabezado"]["IdDoc"]["Folio"] + $folios[$documento["Encabezado"]["IdDoc"]["TipoDTE"]];                    
+                    //CodRef
+                    /*if (!isset($documento["Referencia"]["TpoDocRef"])){
+                        foreach($documento["Referencia"] as $referencia) {
+                            if (isset($folios[$referencia["TpoDocRef"]])) {
+                                $referencia["CodRef"] = $tipoReferencia[strtok($referencia["RazonRef"], " ")];
+                            }
+                        }
+                    } */
+                    $documentosFolio[] = $documento;
+                }
+                $documentos = $documentosFolio;
+                //firma
                 $Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
                 $Folios = [];
                 $pathXML = CERT_EMP . $Emisor["RUTEmisor"] . DS . 'folios' . DS;
@@ -67,7 +89,6 @@ class DteFacturasController extends AppController
                         break;
                     $EnvioDTE->agregar($DTE);
                 }
-
                 // enviar dtes y mostrar resultado del envío: track id o bien =false si hubo error
                 $EnvioDTE->setCaratula($caratula);
                 $EnvioDTE->setFirma($Firma);
@@ -75,13 +96,12 @@ class DteFacturasController extends AppController
                 $track_id = $EnvioDTE->enviar();
                 $msg = 'Track id ' . $track_id;
                 //var_dump($track_id);
-
                 // si hubo errores mostrar
                 $obs = '';
                 foreach (\sasco\LibreDTE\Log::readAll() as $error)
                     $obs.= $error . ' ';
-
-                echo json_encode(["message"=>  $msg . (($obs != '') ? ". Observaciones: " . $obs : $obs) . '' , "data" => []]);
+                
+                echo json_encode(["message"=> 'OK' . (($obs != '') ? ". Observaciones: " . $obs : $obs) . '' , "data" => $track_id]);
                 
             } else {
                 echo json_encode(["message" => "Debe completar todos los campos antes de enviar la solicitud.", "data" => []]);
