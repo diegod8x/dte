@@ -39,10 +39,11 @@ class DteFacturasController extends AppController
                 $documentos = $this->request->data["data"]["dataPruebas"];
                 $tipoReferencia = [
                     "ANULA" => 1, 
-                    "CORRIGE" => 2,                    
+                    "CORRIGE" => 2,
                     "DEVOLUCION" => 3
                 ];
-                //$folios = $this->request->data["data"]["folios"]; corrige folio
+                //$folios = $this->request->data["data"]["folios"]; 
+                //corrige inicio folio
                 $folios = [];                
                 foreach($this->request->data["data"]["folios"] as $key => $value)
                     $folios[$key] = $value - 1;
@@ -60,15 +61,20 @@ class DteFacturasController extends AppController
                 // asigna folios
                 $documentosFolio = [];
                 foreach ($documentos as $documento){
-                    $documento["Encabezado"]["IdDoc"]["Folio"] = $documento["Encabezado"]["IdDoc"]["Folio"] + $folios[$documento["Encabezado"]["IdDoc"]["TipoDTE"]];                    
-                    //CodRef
-                    /*if (!isset($documento["Referencia"]["TpoDocRef"])){
-                        foreach($documento["Referencia"] as $referencia) {
+                    $documento["Encabezado"]["IdDoc"]["Folio"] = $documento["Encabezado"]["IdDoc"]["Folio"] + $folios[$documento["Encabezado"]["IdDoc"]["TipoDTE"]];
+                    if (!isset($documento["Referencia"]["TpoDocRef"])){
+                        foreach($documento["Referencia"] as $key => $referencia) {
                             if (isset($folios[$referencia["TpoDocRef"]])) {
-                                $referencia["CodRef"] = $tipoReferencia[strtok($referencia["RazonRef"], " ")];
+                                //$documento["Referencia"][$key]["CodRef"] = $tipoReferencia[strtok($referencia["RazonRef"], " ")];
+                                $documento["Referencia"][$key]["FolioRef"] = $referencia["FolioRef"] + $folios[$referencia["TpoDocRef"]];
                             }
                         }
-                    } */
+                    }
+                    if ($documento["Encabezado"]["Emisor"] == '')
+                        $documento["Encabezado"]["Emisor"] = $Emisor;
+                    if ($documento["Encabezado"]["Receptor"] == '')
+                        $documento["Encabezado"]["Receptor"] = $Receptor;
+
                     $documentosFolio[] = $documento;
                 }
                 $documentos = $documentosFolio;
