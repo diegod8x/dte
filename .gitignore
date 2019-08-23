@@ -39,3 +39,5 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+.p12
+.pfx
